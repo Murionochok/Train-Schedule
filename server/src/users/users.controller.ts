@@ -1,8 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { User as UserModel } from '@prisma/client';
 import { UsersService } from './users.service';
-import { InsertUser } from './interfaces';
-import { Public } from 'src/auth/auth.decorator';
+import { InsertUser } from './dto/interfaces';
+import { Public } from 'src/auth/decorators/auth.decorator';
 
 @Controller('users')
 export class UsersController {

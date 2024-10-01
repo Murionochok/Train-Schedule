@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User, Prisma } from '@prisma/client';
-import { InsertUser } from './interfaces';
+import { InsertUser } from './dto/interfaces';
 
 import * as bcrypt from 'bcrypt';
 
@@ -17,21 +17,8 @@ export class UsersService {
     });
   }
 
-  async users(params: {
-    skip?: number;
-    take?: number;
-    cursor?: Prisma.UserWhereUniqueInput;
-    where?: Prisma.UserWhereInput;
-    orderBy?: Prisma.UserOrderByWithRelationInput;
-  }): Promise<User[]> {
-    const { skip, take, cursor, where, orderBy } = params;
-    return this.prisma.user.findMany({
-      skip,
-      take,
-      cursor,
-      where,
-      orderBy,
-    });
+  async users(): Promise<User[]> {
+    return this.prisma.user.findMany();
   }
 
   async createUser(data: InsertUser): Promise<User> {
@@ -54,11 +41,7 @@ export class UsersService {
     where: Prisma.UserWhereUniqueInput;
     data: Prisma.UserUpdateInput;
   }): Promise<User> {
-    const { where, data } = params;
-    return this.prisma.user.update({
-      data,
-      where,
-    });
+    return this.prisma.user.update(params);
   }
 
   async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {

@@ -14,12 +14,33 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  full_name String
-  age Int
-  email String  @unique
-  password  String
+  id            Int    @id @default(autoincrement())
+  full_name     String
+  age           Int
+  email         String @unique
+  password      String
   password_salt String
-  phone String
+  phone         String
 }
 
+model TrainSchedule {
+  id    Int      @id @default(autoincrement())
+  from  String
+  to    String
+  start DateTime
+  end   DateTime
+  delay Int
+
+  stop_stations Json
+
+  carriages Carriage[]
+}
+
+model Carriage {
+  id              Int            @id @default(autoincrement())
+  class           String
+  place_price      Float
+  places_amount    Int
+  train_schedule   TrainSchedule? @relation(fields: [train_scheduleId], references: [id])
+  train_scheduleId Int?
+}
