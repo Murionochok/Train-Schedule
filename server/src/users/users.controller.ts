@@ -8,7 +8,7 @@ import { Public } from 'src/auth/decorators/auth.decorator';
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
   @Public()
-  @Post()
+  @Post('register')
   async signupUser(@Body() userData: InsertUser): Promise<UserModel> {
     return this.userService.createUser(userData);
   }
