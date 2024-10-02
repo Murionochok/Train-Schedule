@@ -13,7 +13,7 @@ export class ScheduleService {
 
   async scheduleById(
     id: Prisma.TrainScheduleWhereUniqueInput,
-  ): Promise<Schedule> {
+  ): Promise<Schedule | null> {
     return this.prisma.trainSchedule.findUnique({ where: id });
   }
 
